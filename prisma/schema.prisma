@@ -17,6 +17,24 @@ model User {
   password   String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
+  base_wms      Base_wms[]
 
   @@map("users")
+}
+
+model Base_wms{
+  id         String    @id @default(uuid())
+  item       String
+  descricao   String
+  endereco   String
+  estoque   String
+  categoria   String
+  saldo   Int
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@map("base-wms")
+  user_id String
 }
