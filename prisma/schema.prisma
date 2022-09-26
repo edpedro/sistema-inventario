@@ -17,12 +17,12 @@ model User {
   password   String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-  base_wms      Base_wms[]
+  baseWms BaseWms[]
 
   @@map("users")
 }
 
-model Base_wms{
+model BaseWms{
   id         String    @id @default(uuid())
   item       String
   descricao   String
@@ -30,11 +30,14 @@ model Base_wms{
   estoque   String
   categoria   String
   saldo   Int
+  date String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
+  
 
-  user User @relation(fields: [user_id], references: [id])
-
-  @@map("base-wms")
+  user User @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
   user_id String
+
+  @@map("baseWms")
+  
 }

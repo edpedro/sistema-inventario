@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "base-wms" (
+CREATE TABLE "baseWms" (
     "id" TEXT NOT NULL,
     "item" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
@@ -7,12 +7,13 @@ CREATE TABLE "base-wms" (
     "estoque" TEXT NOT NULL,
     "categoria" TEXT NOT NULL,
     "saldo" INTEGER NOT NULL,
+    "date" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "user_id" TEXT NOT NULL,
 
-    CONSTRAINT "base-wms_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "baseWms_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
-ALTER TABLE "base-wms" ADD CONSTRAINT "base-wms_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "baseWms" ADD CONSTRAINT "baseWms_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
