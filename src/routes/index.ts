@@ -8,6 +8,9 @@ import { DetailUserController } from "../controllers/user/DetailUserController"
 import { ImportBaseWmsController } from "../controllers/baseWms/ImportBaseWmsController"
 import { DeleteBaseWmsController } from "../controllers/baseWms/DeleteBaseWmsController"
 
+import { ImportBaseSapController } from "../controllers/baseSap/ImportBaseSapController"
+import { DeleteBaseSAPController } from "../controllers/baseSap/DeleteBaseSAPController"
+
 import { isAuthenticated } from "../middlewares/isAuthenticated"
 
 import uploadConfig from "../config/multer"
@@ -30,6 +33,18 @@ router.delete(
   "/importwms",
   isAuthenticated,
   new DeleteBaseWmsController().handle
+)
+
+router.post(
+  "/importsap",
+  isAuthenticated,
+  upload.single("file"),
+  new ImportBaseSapController().handle
+)
+router.delete(
+  "/importsap",
+  isAuthenticated,
+  new DeleteBaseSAPController().handle
 )
 
 export { router }

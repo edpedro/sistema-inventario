@@ -5,9 +5,9 @@ interface OrderResquest {
   user_id: string
 }
 
-class DeleteBaseWmsService {
+class DeleteBaseSapService {
   async execute({ date, user_id }: OrderResquest) {
-    const baseAlreadyExists = await prismaClient.baseWms.findMany({
+    const baseAlreadyExists = await prismaClient.baseSap.findMany({
       where: {
         user_id,
         date,
@@ -17,8 +17,8 @@ class DeleteBaseWmsService {
     if (!baseAlreadyExists) {
       throw new Error("Base does not exist")
     }
-    console.log(user_id)
-    const base = await prismaClient.baseWms.deleteMany({
+
+    const base = await prismaClient.baseSap.deleteMany({
       where: {
         user_id,
         date,
@@ -29,4 +29,4 @@ class DeleteBaseWmsService {
   }
 }
 
-export { DeleteBaseWmsService }
+export { DeleteBaseSapService }

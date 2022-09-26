@@ -6,7 +6,7 @@ CREATE TABLE "baseWms" (
     "endereco" TEXT NOT NULL,
     "estoque" TEXT NOT NULL,
     "categoria" TEXT NOT NULL,
-    "saldo" INTEGER NOT NULL,
+    "saldo" TEXT NOT NULL,
     "date" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,

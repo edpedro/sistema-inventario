@@ -18,6 +18,7 @@ model User {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   baseWms BaseWms[]
+  baseSap BaseSap[]
 
   @@map("users")
 }
@@ -29,7 +30,7 @@ model BaseWms{
   endereco   String
   estoque   String
   categoria   String
-  saldo   Int
+  saldo   String
   date String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -39,5 +40,25 @@ model BaseWms{
   user_id String
 
   @@map("baseWms")
+  
+}
+
+model BaseSap{
+  id         String    @id @default(uuid())
+  centro       String
+  deposito   String
+  material   String
+  descricao   String
+  saldo   String
+  valor   String
+  date String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  
+
+  user User @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user_id String
+
+  @@map("baseSap")
   
 }
