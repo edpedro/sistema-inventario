@@ -8,10 +8,12 @@ import { DetailUserController } from "../controllers/user/DetailUserController"
 import { ImportBaseWmsController } from "../controllers/baseWms/ImportBaseWmsController"
 import { DeleteBaseWmsController } from "../controllers/baseWms/DeleteBaseWmsController"
 import { ListBaseWmsController } from "../controllers/baseWms/ListBaseWmsController"
+import { UpdateBaseWmsController } from "../controllers/baseWms/UpdateBaseWmsController"
 
 import { ImportBaseSapController } from "../controllers/baseSap/ImportBaseSapController"
 import { DeleteBaseSAPController } from "../controllers/baseSap/DeleteBaseSAPController"
 import { ListBaseSapController } from "../controllers/baseSap/ListBaseSapController"
+import { UpdateBaseSapController } from "../controllers/baseSap/UpdateBaseSapController"
 
 import { isAuthenticated } from "../middlewares/isAuthenticated"
 
@@ -37,6 +39,7 @@ router.delete(
   new DeleteBaseWmsController().handle
 )
 router.get("/importwms", isAuthenticated, new ListBaseWmsController().handle)
+router.put("/importwms", isAuthenticated, new UpdateBaseWmsController().handle)
 
 router.post(
   "/importsap",
@@ -50,4 +53,6 @@ router.delete(
   new DeleteBaseSAPController().handle
 )
 router.get("/importsap", isAuthenticated, new ListBaseSapController().handle)
+router.put("/importsap", isAuthenticated, new UpdateBaseSapController().handle)
+
 export { router }
