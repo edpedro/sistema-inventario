@@ -3,13 +3,20 @@ import { UpdateBaseSapService } from "../../services/baseSAP/UpdateBaseSapServic
 
 class UpdateBaseSapController {
   async handle(req: Request, res: Response) {
-    const { id, saldo } = req.body
+    const { id, saldo, centro, deposito, material, descricao, valor, date } =
+      req.body
 
     const updateBaseSapService = new UpdateBaseSapService()
 
     const baseSap = await updateBaseSapService.execute({
       id,
       saldo,
+      centro,
+      deposito,
+      material,
+      descricao,
+      valor,
+      date,
     })
 
     return res.json(baseSap)
