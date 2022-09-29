@@ -4,6 +4,7 @@ import XLSX from "xlsx"
 interface FileResquest {
   excelFilename: Express.Multer.File
   date: string
+  nome: string
   user_id: string
 }
 
@@ -17,7 +18,7 @@ interface OrderResquest {
 }
 
 class ImportBaseWmsService {
-  async execute({ excelFilename, date, user_id }: FileResquest) {
+  async execute({ excelFilename, nome, date, user_id }: FileResquest) {
     const wb = XLSX.readFile(excelFilename.path)
     const ws = wb.Sheets["Sheet1"]
     const baseDate: OrderResquest[] = XLSX.utils.sheet_to_json(ws)
@@ -26,6 +27,7 @@ class ImportBaseWmsService {
       where: {
         user_id,
         date,
+        nome,
       },
     })
     if (baseAlreadyExists) {
@@ -42,6 +44,7 @@ class ImportBaseWmsService {
         saldo: String(value["Dispon.Exped."]),
         date,
         user_id,
+        nome,
       }
     })
 

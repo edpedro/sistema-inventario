@@ -26,6 +26,7 @@ model User {
 model BaseWms{
   id         String    @id @default(uuid())
   item       String
+  nome        String
   descricao   String
   endereco   String
   estoque   String
@@ -46,6 +47,7 @@ model BaseWms{
 model BaseSap{
   id         String    @id @default(uuid())
   centro       String
+  nome        String
   deposito   String
   material   String
   descricao   String

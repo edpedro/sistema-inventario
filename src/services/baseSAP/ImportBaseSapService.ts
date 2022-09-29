@@ -4,6 +4,7 @@ import XLSX from "xlsx"
 interface FileResquest {
   excelFilename: Express.Multer.File
   date: string
+  nome: string
   user_id: string
 }
 
@@ -17,7 +18,7 @@ interface OrderResquest {
 }
 
 class ImportBaseSapService {
-  async execute({ excelFilename, date, user_id }: FileResquest) {
+  async execute({ excelFilename, date, nome, user_id }: FileResquest) {
     const wb = XLSX.readFile(excelFilename.path)
     const ws = wb.Sheets["Sheet1"]
     const baseData: Array<OrderResquest> = XLSX.utils.sheet_to_json(ws)
@@ -26,6 +27,7 @@ class ImportBaseSapService {
       where: {
         user_id,
         date,
+        nome,
       },
     })
     if (baseAlreadyExists) {
@@ -41,6 +43,7 @@ class ImportBaseSapService {
         saldo: String(value["Utilização livre"]),
         valor: String(value["Val.utiliz.livre"]),
         date,
+        nome,
         user_id,
       }
     })

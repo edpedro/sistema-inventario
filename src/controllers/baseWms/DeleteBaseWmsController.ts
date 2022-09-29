@@ -4,12 +4,17 @@ import { DeleteBaseWmsService } from "../../services/baseWms/DeleteBaseWmsServic
 class DeleteBaseWmsController {
   async handle(req: Request, res: Response) {
     const user_id = req.user_id
-    const { date } = req.body
+    const { item, date, nome, endereco, estoque, categoria } = req.body
 
     const deleteBaseWmsService = new DeleteBaseWmsService()
 
     const baseWms = await deleteBaseWmsService.execute({
+      item,
       date,
+      nome,
+      endereco,
+      estoque,
+      categoria,
       user_id,
     })
 

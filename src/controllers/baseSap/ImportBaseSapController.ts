@@ -4,7 +4,7 @@ import { ImportBaseSapService } from "../../services/baseSAP/ImportBaseSapServic
 class ImportBaseSapController {
   async handle(req: Request, res: Response) {
     const user_id = req.user_id
-    const { date } = req.body
+    const { date, nome } = req.body
 
     if (!req.file) {
       throw new Error("Erro upload arquivo")
@@ -15,6 +15,7 @@ class ImportBaseSapController {
     const baseSap = await importBaseSapService.execute({
       excelFilename: req.file,
       date,
+      nome,
       user_id,
     })
 

@@ -2,6 +2,7 @@
 CREATE TABLE "baseWms" (
     "id" TEXT NOT NULL,
     "item" TEXT NOT NULL,
+    "nome" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
     "endereco" TEXT NOT NULL,
     "estoque" TEXT NOT NULL,

@@ -2,6 +2,7 @@
 CREATE TABLE "baseSap" (
     "id" TEXT NOT NULL,
     "centro" TEXT NOT NULL,
+    "nome" TEXT NOT NULL,
     "deposito" TEXT NOT NULL,
     "material" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
