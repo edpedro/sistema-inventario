@@ -4,7 +4,7 @@ import XLSX from "xlsx"
 interface FileResquest {
   excelFilename: Express.Multer.File
   date: string
-  nome: string
+  name: string
   user_id: string
 }
 
@@ -18,7 +18,7 @@ interface OrderResquest {
 }
 
 class ImportBaseWmsService {
-  async execute({ excelFilename, nome, date, user_id }: FileResquest) {
+  async execute({ excelFilename, name, date, user_id }: FileResquest) {
     const wb = XLSX.readFile(excelFilename.path)
     const ws = wb.Sheets["Sheet1"]
     const baseDate: OrderResquest[] = XLSX.utils.sheet_to_json(ws)
@@ -27,24 +27,24 @@ class ImportBaseWmsService {
       where: {
         user_id,
         date,
-        nome,
+        name,
       },
     })
     if (baseAlreadyExists) {
-      throw new Error("Base already exists")
+      throw new Error("Dados já cadastrado")
     }
 
     const newBaseData = baseDate.map((value) => {
       return {
         item: String(value.Item),
-        descricao: value.Descricao,
-        endereco: value.Endereco,
-        estoque: value["Tip.Estoque"],
-        categoria: value["Cat.Item"],
-        saldo: String(value["Dispon.Exped."]),
+        description: value.Descricao,
+        address: value.Endereco,
+        center: value["Tip.Estoque"],
+        category: value["Cat.Item"],
+        balance: String(value["Dispon.Exped."]),
         date,
         user_id,
-        nome,
+        name,
       }
     })
 

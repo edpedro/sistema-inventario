@@ -5,7 +5,7 @@ import XLSX from "xlsx"
 interface FileResquest {
   excelFilename: Express.Multer.File
   date: string
-  nome: string
+  name: string
   user_id: string
 }
 
@@ -14,16 +14,16 @@ interface OrderResquest {
 }
 interface TypeBaseWms {
   item: string
-  nome: string
-  descricao: string
-  endereco: string
-  estoque: string
-  categoria: string
-  saldo: string
+  name: string
+  des: string
+  description: string
+  center: string
+  category: string
+  balance: string
 }
 
 class ImportBaseCiclicoService {
-  async execute({ excelFilename, nome, date, user_id }: FileResquest) {
+  async execute({ excelFilename, name, date, user_id }: FileResquest) {
     const wb = XLSX.readFile(excelFilename.path)
     const ws = wb.Sheets["Sheet1"]
     const baseDate: OrderResquest[] = XLSX.utils.sheet_to_json(ws)
@@ -32,11 +32,11 @@ class ImportBaseCiclicoService {
       where: {
         user_id,
         date,
-        nome,
+        name,
       },
     })
     if (baseAlreadyExists) {
-      throw new Error("Base already exists")
+      throw new Error("Dados já cadastrado")
     }
 
     const item = baseDate.map((request) => request.Item)
@@ -51,7 +51,7 @@ class ImportBaseCiclicoService {
     const baseSapAlreadyExists = await prismaClient.baseSap.findMany({
       where: {
         date,
-        material: { in: item },
+        item: { in: item },
       },
     })
 
@@ -61,7 +61,7 @@ class ImportBaseCiclicoService {
         acc[wms.item] = acc[wms.item]
           ? {
               ...wms,
-              saldo: Number(wms.saldo) + Number(acc[wms.item].saldo),
+              saldo: Number(wms.balance) + Number(acc[wms.item].balance),
             }
           : wms
         return acc
@@ -72,17 +72,17 @@ class ImportBaseCiclicoService {
 
     baseSapAlreadyExists.map(function (sap) {
       baseWms.map(function (wms) {
-        if (sap.material === wms.item) {
+        if (sap.item === wms.item) {
           base.push({
-            item: sap.material,
-            descricao: sap.descricao,
-            deposito: sap.deposito,
-            centro: sap.centro,
-            saldoSap: String(sap.saldo),
-            saldoWms: String(wms.saldo),
+            item: sap.item,
+            description: sap.description,
+            deposit: sap.deposit,
+            center: sap.center,
+            balanceSap: String(sap.balance),
+            balanceWms: String(wms.balance),
             date,
-            nome,
-            valor: String(sap.valor),
+            name,
+            value: String(sap.value),
             user_id,
           })
         }

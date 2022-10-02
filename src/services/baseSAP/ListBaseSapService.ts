@@ -3,16 +3,16 @@ import prismaClient from "../../prisma"
 interface BaseSapRequest {
   user_id: string
   date?: string
-  material: string
+  item: string
 }
 
 class ListBaseSapService {
-  async execute({ user_id, date, material }: BaseSapRequest) {
+  async execute({ user_id, date, item }: BaseSapRequest) {
     const baseSap = await prismaClient.baseSap.findMany({
       where: {
         user_id,
         date,
-        material,
+        item,
       },
     })
 

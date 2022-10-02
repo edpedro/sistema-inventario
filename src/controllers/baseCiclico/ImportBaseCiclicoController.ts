@@ -4,7 +4,7 @@ import { ImportBaseCiclicoService } from "../../services/baseCiclico/ImportBaseC
 class ImportBaseCiclicoController {
   async handle(req: Request, res: Response) {
     const user_id = req.user_id
-    const { date, nome } = req.body
+    const { date, name } = req.body
 
     if (!req.file) {
       throw new Error("Erro upload arquivo")
@@ -15,7 +15,7 @@ class ImportBaseCiclicoController {
     const baseCiclico = await importBaseCiclicoService.execute({
       excelFilename: req.file,
       date,
-      nome,
+      name,
       user_id,
     })
 

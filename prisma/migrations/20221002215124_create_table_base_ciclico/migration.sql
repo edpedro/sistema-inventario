@@ -9,7 +9,7 @@ CREATE TABLE "baseCiclico" (
     "balanceSap" TEXT NOT NULL,
     "balanceWms" TEXT NOT NULL,
     "date" TEXT NOT NULL,
-    "quantidadeContada" TEXT NOT NULL DEFAULT '',
+    "countedQauntity" TEXT NOT NULL DEFAULT '',
     "justification" TEXT NOT NULL DEFAULT '',
     "value" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,

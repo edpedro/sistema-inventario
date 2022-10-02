@@ -4,7 +4,7 @@ import { ImportBaseWmsService } from "../../services/baseWms/ImportBaseWmsServic
 class ImportBaseWmsController {
   async handle(req: Request, res: Response) {
     const user_id = req.user_id
-    const { date, nome } = req.body
+    const { date, name } = req.body
 
     if (!req.file) {
       throw new Error("Erro upload arquivo")
@@ -16,7 +16,7 @@ class ImportBaseWmsController {
       excelFilename: req.file,
       date,
       user_id,
-      nome,
+      name,
     })
 
     return res.json(baseWms)

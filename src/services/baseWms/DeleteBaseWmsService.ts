@@ -3,47 +3,47 @@ import prismaClient from "../../prisma"
 interface OrderResquest {
   date: string
   item?: string
-  nome?: string
-  endereco?: string
-  estoque?: string
-  categoria?: string
+  name?: string
+  address?: string
+  center?: string
+  category?: string
   user_id: string
 }
 
 class DeleteBaseWmsService {
   async execute({
     date,
-    nome,
+    name,
     item,
-    endereco,
-    estoque,
-    categoria,
+    address,
+    center,
+    category,
     user_id,
   }: OrderResquest) {
     const baseAlreadyExists = await prismaClient.baseWms.findMany({
       where: {
         date,
-        nome,
+        name,
         item,
-        endereco,
-        estoque,
-        categoria,
+        address,
+        center,
+        category,
         user_id,
       },
     })
 
-    if (!baseAlreadyExists) {
-      throw new Error("Base does not exist")
+    if (baseAlreadyExists.length <= 0) {
+      throw new Error("Dados não encontrado.")
     }
 
     const base = await prismaClient.baseWms.deleteMany({
       where: {
         date,
-        nome,
+        name,
         item,
-        endereco,
-        estoque,
-        categoria,
+        address,
+        center,
+        category,
       },
     })
     return base

@@ -4,16 +4,16 @@ import { DeleteBaseSapService } from "../../services/baseSAP/DeleteBaseSapServic
 class DeleteBaseSAPController {
   async handle(req: Request, res: Response) {
     const user_id = req.user_id
-    const { date, centro, nome, deposito, material } = req.body
+    const { date, center, name, deposit, item } = req.body
 
     const deleteBaseSapService = new DeleteBaseSapService()
 
     const baseSap = await deleteBaseSapService.execute({
       date,
-      centro,
-      nome,
-      deposito,
-      material,
+      center,
+      name,
+      deposit,
+      item,
       user_id,
     })
 

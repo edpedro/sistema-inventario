@@ -76,7 +76,7 @@ model BaseCiclico{
   balanceSap   String
   balanceWms   String  
   date String
-  quantidadeContada String @default("")
+  countedQauntity String @default("")
   justification String @default("")
   value String
   created_at DateTime? @default(now())

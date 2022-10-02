@@ -2,37 +2,46 @@ import prismaClient from "../../prisma"
 
 interface BaseSapRequest {
   id: string
-  saldo: string
-  centro?: string
-  deposito?: string
-  material?: string
-  descricao?: string
-  valor?: string
+  balance: string
+  center?: string
+  deposit?: string
+  item?: string
+  description?: string
+  value?: string
   date?: string
 }
 
 class UpdateBaseSapService {
   async execute({
     id,
-    saldo,
-    centro,
-    deposito,
-    material,
-    descricao,
-    valor,
+    balance,
+    center,
+    deposit,
+    item,
+    description,
+    value,
     date,
   }: BaseSapRequest) {
+    const baseAlreadyExists = await prismaClient.baseSap.findFirst({
+      where: {
+        id,
+      },
+    })
+
+    if (!baseAlreadyExists) {
+      throw new Error("Dados não encontrado.")
+    }
     const baseSap = await prismaClient.baseSap.update({
       where: {
         id,
       },
       data: {
-        saldo,
-        centro,
-        deposito,
-        material,
-        descricao,
-        valor,
+        balance,
+        center,
+        deposit,
+        item,
+        description,
+        value,
         date,
       },
     })

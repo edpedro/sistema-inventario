@@ -3,18 +3,18 @@ import { UpdateBaseWmsService } from "../../services/baseWms/UpdateBaseWmsServic
 
 class UpdateBaseWmsController {
   async handle(req: Request, res: Response) {
-    const { id, saldo, endereco, categoria, estoque, descricao, item, date } =
+    const { id, balance, address, category, center, description, item, date } =
       req.body
 
     const updateBaseWmsService = new UpdateBaseWmsService()
 
     const baseWms = await updateBaseWmsService.execute({
       id,
-      saldo,
-      endereco,
-      categoria,
-      estoque,
-      descricao,
+      balance,
+      address,
+      category,
+      center,
+      description,
       item,
       date,
     })

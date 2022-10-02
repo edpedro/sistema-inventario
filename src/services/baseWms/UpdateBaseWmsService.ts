@@ -2,11 +2,11 @@ import prismaClient from "../../prisma"
 
 interface BaseWmsRequest {
   id: string
-  saldo: string
-  endereco?: string
-  categoria?: string
-  estoque?: string
-  descricao?: string
+  balance: string
+  address?: string
+  category?: string
+  center?: string
+  description?: string
   item?: string
   date?: string
 }
@@ -14,24 +14,34 @@ interface BaseWmsRequest {
 class UpdateBaseWmsService {
   async execute({
     id,
-    saldo,
-    endereco,
-    categoria,
-    estoque,
-    descricao,
+    balance,
+    address,
+    category,
+    center,
+    description,
     item,
     date,
   }: BaseWmsRequest) {
+    const baseAlreadyExists = await prismaClient.baseWms.findFirst({
+      where: {
+        id,
+      },
+    })
+
+    if (!baseAlreadyExists) {
+      throw new Error("Dados não encontrado.")
+    }
+
     const baseWms = await prismaClient.baseWms.update({
       where: {
         id,
       },
       data: {
-        saldo,
-        endereco,
-        categoria,
-        estoque,
-        descricao,
+        balance,
+        address,
+        category,
+        center,
+        description,
         item,
         date,
       },
