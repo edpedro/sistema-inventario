@@ -12,6 +12,7 @@ CREATE TABLE "baseCiclico" (
     "countedQauntity" TEXT NOT NULL DEFAULT '',
     "justification" TEXT NOT NULL DEFAULT '',
     "value" TEXT NOT NULL,
+    "status" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "user_id" TEXT NOT NULL,

@@ -20,6 +20,7 @@ model User {
   baseWms BaseWms[]
   baseSap BaseSap[]
   baseCiclico BaseCiclico[]
+  baseFichas BaseFichas[]
 
   @@map("users")
 }
@@ -79,6 +80,7 @@ model BaseCiclico{
   countedQauntity String @default("")
   justification String @default("")
   value String
+  status Boolean @default(false)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   
@@ -87,5 +89,24 @@ model BaseCiclico{
   user_id String
 
   @@map("baseCiclico")
+  
+}
+
+model BaseFichas{
+  id         String    @id @default(uuid())
+  item       String
+  name        String
+  description   String 
+  address    String
+  balance   String  @default("")
+  date String  
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  
+
+  user User @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user_id String
+
+  @@map("baseFichas")
   
 }

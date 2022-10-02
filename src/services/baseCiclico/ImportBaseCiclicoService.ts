@@ -42,17 +42,43 @@ class ImportBaseCiclicoService {
     const item = baseDate.map((request) => request.Item)
 
     const baseWmsAlreadyExists = await prismaClient.baseWms.findMany({
+      orderBy: [
+        {
+          address: "asc",
+        },
+      ],
       where: {
         date,
         item: { in: item },
       },
     })
 
+    if (baseWmsAlreadyExists.length <= 0) {
+      throw new Error("Dados não encontrados na base WMS")
+    }
+
     const baseSapAlreadyExists = await prismaClient.baseSap.findMany({
       where: {
         date,
         item: { in: item },
       },
+    })
+
+    if (baseSapAlreadyExists.length <= 0) {
+      throw new Error("Dados não encontrados na base SAP")
+    }
+
+    //gerar fichas
+    const fichas = []
+    baseWmsAlreadyExists.map((wms) => {
+      fichas.push({
+        item: wms.item,
+        address: wms.address,
+        description: wms.description,
+        date,
+        name,
+        user_id,
+      })
     })
 
     //soma quantidade na base WMS
@@ -89,9 +115,13 @@ class ImportBaseCiclicoService {
       })
     })
 
-    const newDate = prismaClient.baseCiclico.createMany({
+    await prismaClient.baseFichas.createMany({
+      data: fichas,
+    })
+    const newDate = await prismaClient.baseCiclico.createMany({
       data: base,
     })
+
     return newDate
   }
 }

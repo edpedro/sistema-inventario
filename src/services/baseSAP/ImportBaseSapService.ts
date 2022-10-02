@@ -48,7 +48,7 @@ class ImportBaseSapService {
       }
     })
 
-    const base = prismaClient.baseSap.createMany({
+    const base = await prismaClient.baseSap.createMany({
       data: newBaseData,
     })
 
