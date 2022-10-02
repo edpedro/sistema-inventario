@@ -15,6 +15,8 @@ import { DeleteBaseSAPController } from "../controllers/baseSap/DeleteBaseSAPCon
 import { ListBaseSapController } from "../controllers/baseSap/ListBaseSapController"
 import { UpdateBaseSapController } from "../controllers/baseSap/UpdateBaseSapController"
 
+import { ImportBaseCiclicoController } from "../controllers/baseCiclico/ImportBaseCiclicoController"
+
 import { isAuthenticated } from "../middlewares/isAuthenticated"
 
 import uploadConfig from "../config/multer"
@@ -27,6 +29,7 @@ router.post("/users", new CreateUserController().handle)
 router.post("/session", new AuthUserController().handle)
 router.get("/detail", isAuthenticated, new DetailUserController().handle)
 
+//base WMS
 router.post(
   "/importwms",
   isAuthenticated,
@@ -41,6 +44,7 @@ router.delete(
 router.get("/importwms", isAuthenticated, new ListBaseWmsController().handle)
 router.put("/importwms", isAuthenticated, new UpdateBaseWmsController().handle)
 
+//base SAP
 router.post(
   "/importsap",
   isAuthenticated,
@@ -54,5 +58,13 @@ router.delete(
 )
 router.get("/importsap", isAuthenticated, new ListBaseSapController().handle)
 router.put("/importsap", isAuthenticated, new UpdateBaseSapController().handle)
+
+//base CICLICO
+router.post(
+  "/ciclico",
+  isAuthenticated,
+  upload.single("file"),
+  new ImportBaseCiclicoController().handle
+)
 
 export { router }

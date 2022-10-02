@@ -19,6 +19,7 @@ model User {
   updated_at DateTime? @default(now())
   baseWms BaseWms[]
   baseSap BaseSap[]
+  baseCiclico BaseCiclico[]
 
   @@map("users")
 }
@@ -26,12 +27,12 @@ model User {
 model BaseWms{
   id         String    @id @default(uuid())
   item       String
-  nome        String
-  descricao   String
-  endereco   String
-  estoque   String
-  categoria   String
-  saldo   String
+  name        String
+  description   String
+  address   String
+  center   String
+  category   String
+  balance   String
   date String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -46,13 +47,13 @@ model BaseWms{
 
 model BaseSap{
   id         String    @id @default(uuid())
-  centro       String
-  nome        String
-  deposito   String
-  material   String
-  descricao   String
-  saldo   String
-  valor   String
+  center       String
+  name        String
+  deposit   String
+  item   String
+  description   String
+  balance   String
+  value   String
   date String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -62,5 +63,29 @@ model BaseSap{
   user_id String
 
   @@map("baseSap")
+  
+}
+
+model BaseCiclico{
+  id         String    @id @default(uuid())
+  item       String
+  name        String
+  description   String  
+  deposit   String
+  center   String
+  balanceSap   String
+  balanceWms   String  
+  date String
+  quantidadeContada String @default("")
+  justification String @default("")
+  value String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  
+
+  user User @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user_id String
+
+  @@map("baseCiclico")
   
 }
