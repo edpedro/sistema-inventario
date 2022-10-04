@@ -48,7 +48,7 @@ class ImportBaseWmsService {
       }
     })
 
-    const base = prismaClient.baseWms.createMany({
+    const base = await prismaClient.baseWms.createMany({
       data: newBaseData,
     })
 

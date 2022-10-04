@@ -61,11 +61,12 @@ router.get("/importsap", isAuthenticated, new ListBaseSapController().handle)
 router.put("/importsap", isAuthenticated, new UpdateBaseSapController().handle)
 
 //base CICLICO
-router.post(
+router.get(
   "/ciclico",
   isAuthenticated,
   upload.single("file"),
   new ImportBaseCiclicoController().handle
 )
 router.post("/fichas", isAuthenticated, new GenerateFichaController().handle)
+
 export { router }

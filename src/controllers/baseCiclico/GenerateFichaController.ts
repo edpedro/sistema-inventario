@@ -14,7 +14,7 @@ class GenerateFichaController {
       user_id,
     })
 
-    return res.json(fichas)
+    return res.sendFile(fichas)
   }
 }
 
