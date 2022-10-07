@@ -17,6 +17,7 @@ import { UpdateBaseSapController } from "../controllers/baseSap/UpdateBaseSapCon
 
 import { ImportBaseCiclicoController } from "../controllers/baseCiclico/ImportBaseCiclicoController"
 import { GenerateFichaController } from "../controllers/baseCiclico/GenerateFichaController"
+import { ImportUpdateFichaController } from "../controllers/baseCiclico/ImportUpdateFichaController"
 
 import { isAuthenticated } from "../middlewares/isAuthenticated"
 
@@ -68,5 +69,11 @@ router.get(
   new ImportBaseCiclicoController().handle
 )
 router.post("/fichas", isAuthenticated, new GenerateFichaController().handle)
+router.put(
+  "/fichas",
+  isAuthenticated,
+  upload.single("file"),
+  new ImportUpdateFichaController().handle
+)
 
 export { router }

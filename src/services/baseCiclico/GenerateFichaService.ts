@@ -11,7 +11,7 @@ interface OrderResquest {
 class GenerateFichaService {
   async execute({ date, name, user_id }: OrderResquest) {
     const workSheetColumnName = ["Endereço", "Item", "Descrição", "Saldo"]
-    const workSheetName = "ficha"
+    const workSheetName = "Sheet1"
     const filePath = `./tmp/fichas.xlsx`
 
     const fichas = await prismaClient.baseFichas.findMany({
